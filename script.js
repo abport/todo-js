@@ -1,6 +1,8 @@
 const form = document.getElementById('form')
 const input = document.getElementById('input')
 const todosUL = document.getElementById('todos')
+const smallGuide = document.getElementById('guide')
+smallGuide.style.display = 'none'
 
 const todos = JSON.parse(localStorage.getItem('todos'))
 
@@ -48,6 +50,7 @@ function addTodo(todo) {
             const elementJob = element.attributes.job ? element.attributes.job.value: '';
             if (elementJob && elementJob == "delete") {
                 todoEl.remove()
+                if (todos == "") smallGuide.style.display = 'none'
                 updateLS()
             }
         })
@@ -72,6 +75,8 @@ function updateLS() {
             completed: todoEl.classList.contains('completed')
         })
     })
+
+    if (todos != "") smallGuide.style.display = 'block'
 
     localStorage.setItem('todos', JSON.stringify(todos))
 }
